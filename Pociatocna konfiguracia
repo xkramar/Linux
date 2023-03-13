@@ -1,0 +1,12 @@
+#user: matus
+
+# Add SSH key
+mkdir /home/matus/.ssh; echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDF7I83mnkIpGOQwiqXQYRIxlAal+OUHNwaFAUbXuRgrIHFUFZA6k+blnCp3N2bbR4tb392VDvCoUSeJV7x97iHWuqPsg1m3xCWClLS+AEYXOFw7W61BmQHpfaogDesLHkVz1ybNd22sZ5FvfZID7V2xyi3YDeK/G34cx+YYH6TKEx8Ph+9zuqYF3mo8ynBCsJ0jo7fRjJRyK8WCzD0aiYjT1QQycUYtok6Qs7CWcSnVoOgRb70MGsuGbWR2qakmg2Vqh7JymFKAfat/qLVpzpKUHweQm8RMuEDIUhJo8C6YeCncCSdmrPVAWzGCHzEIH6fQI6vAGdudvSE6owfpa1g1CjiY0LN8w8heSFSdfl9Pb+Q6XUJAvW/sOr+1vOz9R6y7b3S4gSYeTl2dgy12yySfU/5z1itb0aELRLRJqq1s6g7sf3b8DJdxuaEeiXNf/b6TIiCQSDR2IFEamNFEo1jIL286j8Va0zA09wj35x+d5EjCBUOtDamhD4IiNaUVm0= matus@MATUS-MI14PRO" > /home/matus/.ssh/authorized_keys; chown -R matus /home/matus/.ssh
+
+# Allow public key authentication
+sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+systemctl restart sshd
+
+# Disable selinux
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
+
